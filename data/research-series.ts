@@ -13,7 +13,7 @@ export const researchSeries = {
         "A collection of independent technical whitepapers exploring artificial intelligence, adaptive learning, educational technology, educational games, learning analytics, and learner-centered system design.",
 
     author:
-        "Shiwani",
+        "Sakshi",
 
     version:
         "1.0",

@@ -1,55 +1,93 @@
 import type { Metadata } from "next";
 
-import { getResearchArticles } from "@/lib/research";
+import {
+  getResearchPapers,
+} from "@/lib/research";
+
 
 import { Section } from "@/components/ui/Section";
+
 import { SectionTitle } from "@/components/ui/SectionTitle";
+
 import { ResearchCard } from "@/components/cards/ResearchCard";
 
+
+
 export const metadata: Metadata = {
-  title: "Research",
+
+  title:
+    "Research | Sakshi",
+
 
   description:
-    "Research articles on adaptive learning, educational AI, learning analytics, and secure educational technologies.",
+    "Independent research papers covering AI, adaptive learning, educational technology, and trustworthy systems.",
+
 };
 
-export default function ResearchPage() {
-  const articles = getResearchArticles();
+
+
+export default function ResearchPage(){
+
+
+  const papers =
+    getResearchPapers();
+
+
 
   return (
-    <>
-      <Section spacing="lg">
-        <SectionTitle
-          eyebrow="Research"
-          title="Educational AI & Learning Research"
-          description="Exploring adaptive learning, educational technology, artificial intelligence, learning analytics, and trustworthy educational systems."
-        />
 
-        {articles.length === 0 ? (
-          <div className="rounded-2xl border p-12 text-center">
-            <h2 className="text-2xl font-semibold">
-              No research articles yet
-            </h2>
+    <Section spacing="lg">
 
-            <p className="mt-4 text-muted-foreground">
-              Add MDX files inside
-              <code className="mx-2 rounded bg-muted px-2 py-1">
-                content/research
-              </code>
-              to publish research.
-            </p>
-          </div>
-        ) : (
-          <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {articles.map((article) => (
+
+      <SectionTitle
+
+        eyebrow="Research Series"
+
+        title="AI Education & Adaptive Learning Research"
+
+        description="
+        Independent technical whitepapers exploring
+        artificial intelligence, adaptive learning,
+        educational games, and learning systems.
+        "
+
+      />
+
+
+
+      <div
+        className="
+          mt-12
+          grid
+          gap-8
+          md:grid-cols-2
+          xl:grid-cols-3
+        "
+      >
+
+        {
+          papers.map(
+            (paper)=>(
               <ResearchCard
-                key={article.slug}
-                article={article}
+
+                key={
+                  paper.slug
+                }
+
+                paper={
+                  paper
+                }
+
               />
-            ))}
-          </div>
-        )}
-      </Section>
-    </>
+            )
+          )
+        }
+
+      </div>
+
+
+    </Section>
+
   );
+
 }

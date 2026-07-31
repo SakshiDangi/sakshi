@@ -1,17 +1,9 @@
-export interface ResearchArticle {
-  slug: string;
+export interface ContentMetadata {
 
-  title: string;
+  title:string;
 
-  description: string;
+  description:string;
 
-  date: string;
+  slug:string;
 
-  tags: string[];
-
-  cover: string;
-
-  readingTime: string;
-
-  published: boolean;
 }

@@ -1,17 +1,46 @@
-import { researchArticles } from "@/content/research";
+import { research } from "@/data";
 
-export function getResearchArticles() {
-  return researchArticles;
+import type {
+  ResearchPaper,
+} from "@/types/research-paper";
+
+
+
+export function getResearchPapers(): ResearchPaper[] {
+  return research;
 }
 
-export function getResearchArticle(slug: string) {
-  return researchArticles.find(
-    (article) => article.slug === slug
+
+
+export function getResearchPaper(
+  slug: string
+): ResearchPaper | undefined {
+
+  return research.find(
+    (paper) =>
+      paper.slug === slug
   );
+
 }
 
-export function getFeaturedResearch() {
-  return researchArticles.filter(
-    (article) => article.featured
+
+
+export function getFeaturedResearch(): ResearchPaper[] {
+
+  return research.filter(
+    (paper) =>
+      paper.featured
   );
+
+}
+
+
+
+export function getPublishedResearch(): ResearchPaper[] {
+
+  return research.filter(
+    (paper) =>
+      paper.status === "Published"
+  );
+
 }

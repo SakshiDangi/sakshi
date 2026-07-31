@@ -1,86 +1,185 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+import { ResearchPaperLayout } from "@/components/research";
+import { research } from "@/data";
+
+import { researchToc } from "@/data/research-toc";
+
+import { researchReferences } from "@/data/research-references";
 
 import {
-  getResearchArticle,
-  getResearchArticles,
-} from "@/lib/research";
+  MDXRenderer,
+} from "@/components/research";
 
-import { Section } from "@/components/ui/Section";
+import {
+  getResearchContent,
+} from "@/lib/mdx";
 
-interface Props {
+interface ResearchPageProps {
   params: Promise<{
-    slug: string;
+    slug:string;
   }>;
+
 }
 
-export async function generateStaticParams() {
-  return getResearchArticles().map((article) => ({
-    slug: article.slug,
-  }));
+
+export async function generateStaticParams(){
+
+  return research.map(
+    (paper)=>({
+
+      slug:
+        paper.slug,
+
+    })
+  );
+
+
 }
+
 
 export async function generateMetadata({
+
   params,
-}: Props): Promise<Metadata> {
-  const { slug } = await params;
 
-  const article = getResearchArticle(slug);
+}:ResearchPageProps):Promise<Metadata>{
 
-  if (!article) {
+  const {
+    slug,
+  } = await params;
+
+  const paper =
+    research.find(
+      (item)=>
+        item.slug === slug
+    );
+
+  if(!paper){
+
     return {};
+
   }
 
   return {
-    title: article.title,
-    description: article.description,
+    title:
+      `${paper.title} | Research`,
+
+    description:
+      paper.description,
+
+    openGraph:{
+
+      title:
+        paper.title,
+
+
+      description:
+        paper.description,
+
+
+      type:
+        "article",
+    },
+
   };
 }
 
-export default async function ResearchArticlePage({
+
+export default async function ResearchPage({
+
   params,
-}: Props) {
-  const { slug } = await params;
 
-  const article = getResearchArticle(slug);
+}:ResearchPageProps){
 
-  if (!article) {
+
+  const {
+    slug,
+  } = await params;
+
+
+  const paper =
+    research.find(
+      (item)=>
+        item.slug === slug
+    );
+
+
+  if(!paper){
+
     notFound();
   }
 
+
+  const currentPaper = paper;
+
+  const toc =
+    researchToc[
+      currentPaper.slug
+    ] ?? [];
+
+
+  const references =
+    researchReferences[
+      currentPaper.slug
+    ] ?? [];
+
+
+  const researchContent =
+    getResearchContent(
+      currentPaper.slug
+    );
+
+
   return (
-    <Section spacing="lg">
-      <article className="mx-auto max-w-4xl">
-        <header className="mb-12">
 
-          <p className="text-sm text-primary">
-            {article.date}
-          </p>
+  <ResearchPaperLayout
 
-          <h1 className="mt-4 text-5xl font-bold">
-            {article.title}
-          </h1>
+    paper={
+      currentPaper
+    }
 
-          <p className="mt-6 text-xl text-muted-foreground">
-            {article.description}
-          </p>
+    toc={
+      toc
+    }
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border px-3 py-1 text-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </header>
+    references={
+      references
+    }
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <article.Component />
+  >
+
+    {
+      researchContent ? (
+
+        <MDXRenderer
+
+          source={
+            researchContent.content
+          }
+
+        />
+
+      ) : (
+
+        <div
+          className="
+            rounded-xl
+            border
+            p-8
+            text-muted-foreground
+          "
+        >
+
+          Research content is coming soon.
+
         </div>
-      </article>
-    </Section>
-  );
+
+      )
+    }
+
+  </ResearchPaperLayout>
+
+);
+
 }

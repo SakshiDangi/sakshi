@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import {
-  getResearchArticles,
+  getResearchPapers,
 } from "@/lib/research";
 
 import {
@@ -14,9 +14,11 @@ const BASE_URL =
   "https://yourdomain.com";
 
 
+
 export default function sitemap(): MetadataRoute.Sitemap {
 
-  const staticRoutes = [
+
+  const staticRoutes: MetadataRoute.Sitemap = [
 
     "",
 
@@ -41,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       new Date(),
 
     changeFrequency:
-      "monthly" as const,
+      "monthly",
 
     priority:
       route === ""
@@ -52,45 +54,62 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 
 
-  const researchRoutes =
-    getResearchArticles().map(
-      (article) => ({
 
-        url:
-          `${BASE_URL}/research/${article.slug}`,
+  const researchRoutes: MetadataRoute.Sitemap =
 
-        lastModified:
-          new Date(article.date),
-
-        changeFrequency:
-          "monthly" as const,
-
-        priority:
-          0.8,
-
-      })
-    );
+    getResearchPapers().map((paper) => ({
 
 
+      url:
+        `${BASE_URL}/research/${paper.slug}`,
 
-  const blogRoutes =
-    getBlogPosts().map(
-      (post) => ({
 
-        url:
-          `${BASE_URL}/blog/${post.slug}`,
+      lastModified:
+        new Date(
+          paper.publicationDate
+        ),
 
-        lastModified:
-          new Date(post.date),
 
-        changeFrequency:
-          "monthly" as const,
+      changeFrequency:
+        "monthly",
 
-        priority:
-          0.7,
 
-      })
-    );
+      priority:
+        0.8,
+
+
+    }));
+
+
+
+
+
+  const blogRoutes: MetadataRoute.Sitemap =
+
+    getBlogPosts().map((post) => ({
+
+
+      url:
+        `${BASE_URL}/blog/${post.slug}`,
+
+
+      lastModified:
+        new Date(
+          post.date
+        ),
+
+
+      changeFrequency:
+        "monthly",
+
+
+      priority:
+        0.7,
+
+
+    }));
+
+
 
 
 
