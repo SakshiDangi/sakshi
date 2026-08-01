@@ -27,61 +27,73 @@ export function ResearchMetadata({
   paper,
 }: ResearchMetadataProps) {
   return (
-    <section className="py-20">
-      <Container>
-        <div className="grid gap-8 lg:grid-cols-2">
+    <section className="py-14">
+      <Container className="max-w-5xl">
+
+        <div
+          className="
+            grid
+            gap-5
+            lg:grid-cols-2
+          "
+        >
 
           {/* Research Areas */}
 
-          <Card className="h-full rounded-3xl p-8">
-            <CardHeading
-              icon={<BookOpen className="h-5 w-5" />}
-              title="Research Areas"
-            />
-
-            <div className="mt-6 flex flex-wrap gap-3">
+          <MetadataCard
+            icon={<BookOpen className="h-4 w-4" />}
+            title="Research Areas"
+          >
+            <div className="mt-5 flex flex-wrap gap-2">
               {paper.researchAreas.map((area) => (
                 <Badge
                   key={area}
                   variant="secondary"
-                  className="rounded-full px-4 py-2"
+                  className="
+                    rounded-md
+                    px-3
+                    py-1
+                    text-xs
+                    font-medium
+                  "
                 >
                   {area}
                 </Badge>
               ))}
             </div>
-          </Card>
+          </MetadataCard>
 
           {/* Keywords */}
 
-          <Card className="h-full rounded-3xl p-8">
-            <CardHeading
-              icon={<Tags className="h-5 w-5" />}
-              title="Keywords"
-            />
-
-            <div className="mt-6 flex flex-wrap gap-2">
+          <MetadataCard
+            icon={<Tags className="h-4 w-4" />}
+            title="Keywords"
+          >
+            <div className="mt-5 flex flex-wrap gap-2">
               {paper.keywords.map((keyword) => (
                 <Badge
                   key={keyword}
                   variant="outline"
-                  className="rounded-full"
+                  className="
+                    rounded-md
+                    px-3
+                    py-1
+                    text-xs
+                  "
                 >
                   {keyword}
                 </Badge>
               ))}
             </div>
-          </Card>
+          </MetadataCard>
 
           {/* Related Projects */}
 
-          <Card className="rounded-3xl p-8">
-            <CardHeading
-              icon={<ExternalLink className="h-5 w-5" />}
-              title="Related Projects"
-            />
-
-            <div className="mt-6 space-y-3">
+          <MetadataCard
+            icon={<ExternalLink className="h-4 w-4" />}
+            title="Related Projects"
+          >
+            <div className="mt-4">
               {paper.relatedProjects.map((project) => (
                 <Link
                   key={project}
@@ -90,14 +102,15 @@ export function ResearchMetadata({
                     flex
                     items-center
                     justify-between
-                    rounded-xl
-                    border
-                    p-4
+                    border-b
+                    py-3
+                    text-sm
                     transition-colors
-                    hover:bg-muted/50
+                    last:border-none
+                    hover:text-primary
                   "
                 >
-                  <span className="font-medium capitalize">
+                  <span className="capitalize">
                     {project.replace(/-/g, " ")}
                   </span>
 
@@ -105,23 +118,24 @@ export function ResearchMetadata({
                 </Link>
               ))}
             </div>
-          </Card>
+          </MetadataCard>
 
           {/* Resources */}
 
-          <Card className="rounded-3xl p-8">
-            <CardHeading
-              icon={<Download className="h-5 w-5" />}
-              title="Resources"
-            />
-
-            <div className="mt-6 flex flex-col gap-4">
+          <MetadataCard
+            icon={<Download className="h-4 w-4" />}
+            title="Resources"
+          >
+            <div className="mt-5 flex flex-col gap-2">
 
               <Link
                 href={paper.pdf}
                 target="_blank"
               >
-                <Button className="w-full">
+                <Button
+                  size="sm"
+                  className="w-full justify-start"
+                >
                   <Download className="mr-2 h-4 w-4" />
 
                   Download PDF
@@ -134,8 +148,9 @@ export function ResearchMetadata({
                   target="_blank"
                 >
                   <Button
-                    variant="outline"
-                    className="w-full"
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start"
                   >
                     <FaGit className="mr-2 h-4 w-4" />
 
@@ -150,8 +165,9 @@ export function ResearchMetadata({
                   target="_blank"
                 >
                   <Button
-                    variant="outline"
-                    className="w-full"
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start"
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
 
@@ -161,25 +177,36 @@ export function ResearchMetadata({
               )}
 
             </div>
-          </Card>
+          </MetadataCard>
 
           {/* Citation */}
 
-          <Card className="rounded-3xl p-8 lg:col-span-2">
+          <Card
+            className="
+              rounded-xl
+              border
+              bg-background
+              p-6
+              shadow-sm
+              transition-shadow
+              hover:shadow-md
+              lg:col-span-2
+            "
+          >
             <CardHeading
-              icon={<Copy className="h-5 w-5" />}
+              icon={<Copy className="h-4 w-4" />}
               title="Citation"
             />
 
             <div
               className="
-                mt-6
-                rounded-2xl
+                mt-5
+                rounded-lg
                 border
-                bg-muted/40
-                p-6
+                bg-muted/20
+                p-5
                 font-mono
-                text-sm
+                text-[13px]
                 leading-7
               "
             >
@@ -189,17 +216,54 @@ export function ResearchMetadata({
 
             <Button
               variant="outline"
-              className="mt-6"
+              size="sm"
+              className="mt-5"
             >
               <Copy className="mr-2 h-4 w-4" />
 
               Copy Citation
             </Button>
+
           </Card>
 
         </div>
+
       </Container>
     </section>
+  );
+}
+
+interface MetadataCardProps {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
+
+function MetadataCard({
+  title,
+  icon,
+  children,
+}: MetadataCardProps) {
+  return (
+    <Card
+      className="
+        rounded-xl
+        border
+        bg-background
+        p-6
+        shadow-sm
+        transition-shadow
+        hover:shadow-md
+      "
+    >
+      <CardHeading
+        title={title}
+        icon={icon}
+      />
+
+      {children}
+
+    </Card>
   );
 }
 
@@ -213,7 +277,8 @@ function CardHeading({
   icon,
 }: CardHeadingProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2">
+
       <div className="text-primary">
         {icon}
       </div>
@@ -222,13 +287,12 @@ function CardHeading({
         className="
           text-sm
           font-semibold
-          uppercase
-          tracking-[0.2em]
-          text-muted-foreground
+          tracking-wide
         "
       >
         {title}
       </h2>
+
     </div>
   );
 }

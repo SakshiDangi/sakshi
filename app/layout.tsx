@@ -26,7 +26,15 @@ import { Footer } from "@/components/layout/Footer";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 
+import { Source_Serif_4 } from "next/font/google";
 
+const serif = Source_Serif_4({
+
+subsets:["latin"],
+
+variable:"--font-serif",
+
+});
 
 
 // =====================================
@@ -296,6 +304,7 @@ suppressHydrationWarning
     ${geist.variable}
     ${geistMono.variable}
     ${inter.variable}
+    ${serif.variable}
     min-h-screen
     bg-background
     font-sans

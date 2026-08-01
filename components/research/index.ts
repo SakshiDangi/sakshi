@@ -10,3 +10,5 @@ export * from "./ResearchPaperLayout";
 export * from "./ResearchAbstract";
 export * from "./citation";
 export * from "./DownloadPaper";
+export * from "./ReadingProgress";
+export * from "./SectionDivider";

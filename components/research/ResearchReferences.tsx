@@ -3,210 +3,163 @@ import { ExternalLink } from "lucide-react";
 import type { ResearchReference } from "@/types";
 
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/card";
-
 
 interface ResearchReferencesProps {
-
   references: ResearchReference[];
-
 }
 
-
-
 export function ResearchReferences({
-
   references,
-
 }: ResearchReferencesProps) {
-
-
   if (!references.length) {
-
     return null;
-
   }
 
-
   return (
-
-    <section className="border-t py-20">
-
+    <section className="border-t py-16">
 
       <Container className="max-w-4xl">
 
+        {/* Heading */}
 
-        <div className="mb-12">
-
+        <div className="mb-10">
 
           <p
             className="
-              text-sm
+              text-xs
               font-semibold
               uppercase
               tracking-[0.25em]
-              text-primary
+              text-muted-foreground
             "
           >
             References
           </p>
 
-
           <h2
             className="
-              mt-4
+              mt-3
               text-3xl
               font-bold
+              tracking-tight
             "
           >
-            Research Sources
+            Bibliography
           </h2>
-
 
         </div>
 
+        {/* References */}
 
-
-        <div
-          className="
-            space-y-6
-          "
-        >
-
+        <div className="divide-y">
 
           {references.map((reference, index) => (
 
-
-            <Card
+            <article
               key={reference.id}
-              className="p-6"
+              className="
+                flex
+                gap-5
+                py-6
+              "
             >
 
+              {/* Number */}
 
               <div
                 className="
-                  flex
-                  gap-5
+                  w-10
+                  shrink-0
+                  text-sm
+                  font-semibold
+                  text-muted-foreground
                 "
               >
+                [{index + 1}]
+              </div>
 
+              {/* Content */}
 
-                <div
+              <div className="flex-1">
+
+                <h3
                   className="
-                    text-lg
-                    font-bold
-                    text-primary
+                    text-base
+                    font-semibold
+                    leading-7
                   "
                 >
-                  [{index + 1}]
-                </div>
+                  {reference.title}
+                </h3>
 
+                <p
+                  className="
+                    mt-1
+                    text-sm
+                    leading-6
+                    text-muted-foreground
+                  "
+                >
+                  {reference.authors}
 
+                  {reference.year &&
+                    ` (${reference.year})`}
 
-                <div>
+                  {reference.source &&
+                    ` • ${reference.source}`}
+                </p>
 
-
-                  <h3
-                    className="
-                      font-semibold
-                    "
-                  >
-                    {reference.title}
-                  </h3>
-
-
+                {reference.description && (
 
                   <p
                     className="
-                      mt-2
-                      text-sm
+                      mt-3
+                      text-[15px]
+                      leading-7
                       text-muted-foreground
                     "
                   >
-
-                    {reference.authors}
-
-                    {reference.year &&
-                      ` (${reference.year})`
-                    }
-
-                    {reference.source &&
-                      ` · ${reference.source}`
-                    }
-
+                    {reference.description}
                   </p>
 
+                )}
 
+                {reference.url && (
 
-                  {reference.description && (
+                  <a
+                    href={reference.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      mt-4
+                      inline-flex
+                      items-center
+                      gap-2
+                      text-sm
+                      font-medium
+                      text-primary
+                      transition-colors
+                      hover:underline
+                    "
+                  >
+                    View Source
 
-                    <p
-                      className="
-                        mt-3
-                        leading-7
-                        text-muted-foreground
-                      "
-                    >
+                    <ExternalLink className="h-4 w-4" />
 
-                      {reference.description}
+                  </a>
 
-                    </p>
-
-                  )}
-
-
-
-                  {reference.url && (
-
-                    <a
-                      href={reference.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        mt-4
-                        inline-flex
-                        items-center
-                        gap-2
-                        text-sm
-                        font-medium
-                        text-primary
-                      "
-                    >
-
-                      Source
-
-                      <ExternalLink
-                        className="
-                          h-4
-                          w-4
-                        "
-                      />
-
-                    </a>
-
-                  )}
-
-
-                </div>
-
+                )}
 
               </div>
 
-
-            </Card>
-
+            </article>
 
           ))}
 
-
         </div>
-
 
       </Container>
 
-
     </section>
-
   );
-
 }

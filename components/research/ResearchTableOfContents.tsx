@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 
-import { Container } from "@/components/ui/Container";
-
 interface TocItem {
   id: string;
   number: string;
@@ -19,101 +17,87 @@ export function ResearchTableOfContents({
   items,
 }: ResearchTableOfContentsProps) {
   return (
-    <section className="border-b py-20">
-      <Container className="max-w-4xl">
+    <nav
+      className="
+        sticky
+        top-28
+        max-h-[calc(100vh-7rem)]
+        overflow-y-auto
+        border-l
+        border-border/60
+        pl-5
+      "
+    >
+      <div className="mb-6">
+        <p
+          className="
+            text-[11px]
+            font-semibold
+            uppercase
+            tracking-[0.22em]
+            text-muted-foreground
+          "
+        >
+          On this page
+        </p>
+      </div>
 
-        <div className="sticky top-24">
-
-          <p
+      <div className="space-y-1">
+        {items.map((item) => (
+          <Link
+            key={item.id}
+            href={`#${item.id}`}
             className="
-              text-sm
-              font-semibold
-              uppercase
-              tracking-[0.25em]
-              text-primary
+              group
+              block
+              rounded-md
+              py-2
+              transition-colors
+              hover:text-foreground
             "
           >
-            Contents
-          </p>
+            <div className="flex gap-3">
+              <span
+                className="
+                  w-7
+                  shrink-0
+                  text-[11px]
+                  font-semibold
+                  text-primary
+                "
+              >
+                {item.number}
+              </span>
 
-          <h2
-            className="
-              mt-4
-              text-3xl
-              font-bold
-            "
-          >
-            Table of Contents
-          </h2>
-
-        </div>
-
-        <div className="space-y-5">
-
-          {items.map((item) => (
-            <Link
-              key={item.id}
-              href={`#${item.id}`}
-              className="
-                group
-                block
-                rounded-2xl
-                border
-                p-6
-                transition-all
-                hover:border-primary
-                hover:bg-muted/40
-              "
-            >
-              <div className="flex gap-6">
-
-                <div
+              <div className="min-w-0">
+                <p
                   className="
-                    w-12
-                    shrink-0
-                    text-3xl
-                    font-bold
-                    text-primary
+                    text-[13px]
+                    leading-6
+                    text-muted-foreground
+                    group-hover:text-foreground
                   "
                 >
-                  {item.number}
-                </div>
+                  {item.title}
+                </p>
 
-                <div>
-
-                  <h3
+                {item.description && (
+                  <p
                     className="
-                      text-lg
-                      font-semibold
-                      transition-colors
-                      group-hover:text-primary
+                      mt-1
+                      text-[11px]
+                      leading-5
+                      text-muted-foreground/80
                     "
                   >
-                    {item.title}
-                  </h3>
-
-                  {item.description && (
-                    <p
-                      className="
-                        mt-2
-                        leading-7
-                        text-muted-foreground
-                      "
-                    >
-                      {item.description}
-                    </p>
-                  )}
-
-                </div>
-
+                    {item.description}
+                  </p>
+                )}
               </div>
-
-            </Link>
-          ))}
-
-        </div>
-
-      </Container>
-    </section>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }

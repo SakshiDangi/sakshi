@@ -15,44 +15,43 @@ export function ResearchAbstract({
 
   return (
 
-    <section
-      className="
-        my-12
-        rounded-3xl
-        border
-        bg-gradient-to-br
-        from-muted/40
-        to-background
-        p-10
-        shadow-sm
-        transition
-        hover:shadow-md
-      "
-    >
-
-      <h2
-        className="
-          text-2xl
-          font-semibold
-          mb-4
-        "
-      >
-        Abstract
-      </h2>
-
-
-      <p
-        className="
-          leading-8
-          text-muted-foreground
-        "
-      >
-
-        {content}
-
-      </p>
-
-
+    <section className="py-16">
+      <div className="mx-auto max-w-[760px]">
+        <div
+          className="
+            rounded-3xl
+            border
+            bg-gradient-to-br
+            from-muted/40
+            to-background
+            p-10
+            shadow-sm
+          "
+        >
+          <p
+            className="
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.25em]
+              text-primary
+            "
+          >
+            Abstract
+          </p>
+    
+          <p
+            className="
+              mt-5
+              text-[1.125rem]
+              leading-9
+              text-muted-foreground
+            "
+          >
+            {content}
+          </p>
+        </div>
+      </div>
     </section>
 
   );

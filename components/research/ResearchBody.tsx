@@ -13,30 +13,34 @@ export function ResearchBody({
     <section
       className="
         mx-auto
-        mt-16
-        grid
         max-w-7xl
-        gap-10
         px-6
-        lg:grid-cols-[280px_1fr]
+        lg:px-8
+        py-16
       "
     >
-      <aside
+      <div
         className="
-          hidden
-          lg:block
+          grid
+          gap-12
+          lg:grid-cols-[260px_minmax(0,1fr)]
         "
       >
-        {sidebar}
-      </aside>
+        <aside
+          className="
+            hidden
+            lg:block
+          "
+        >
+          <div className="sticky top-24">
+            {sidebar}
+          </div>
+        </aside>
 
-      <main
-        className="
-          min-w-0
-        "
-      >
-        {children}
-      </main>
+        <main className="min-w-0">
+          {children}
+        </main>
+      </div>
     </section>
   );
 }

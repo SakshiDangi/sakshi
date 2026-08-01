@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-
+import { ReadingProgress } from "@/components/research";
 import type { ResearchPaper } from "@/types/research-paper";
 import type { ResearchTocItem } from "@/types/research-toc";
 import type { ResearchReference } from "@/types/research-reference";
@@ -49,6 +49,7 @@ export function ResearchPaperLayout({
       "
     >
 
+      <ReadingProgress />
 
       <ResearchHero
 
@@ -94,6 +95,10 @@ export function ResearchPaperLayout({
 
         series={
           paper.series
+        }
+
+        author={
+          paper.author
         }
 
       />
